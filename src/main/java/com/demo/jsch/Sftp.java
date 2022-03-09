@@ -91,6 +91,12 @@ public class Sftp {
                 //注意：这里的put的参数dst是从FTP服务器中/home/[user]目录后的路径，否则会报no such file的错误。
                 //因为atmoz/sftp这个镜像提供的SFTP登录到后会自动切换到用户主目录下。
                 OutputStream out = channelSftp.put(dst, mode);
+
+                //put方法有多个重载函数:
+                //直接将本地文件上传到服务器。
+                //channelSftp.put("srcPath", "dstPath");
+                //带有进度监视的上传方法，需要自己实现这个接口。
+                //channelSftp.put("srcPath", "destPath", new SftpProgressMonitor());
                 out.write(data);
                 out.flush();
                 System.out.println("Upload file completed. TargetPath=" + dst + ", length=" + data.length);
